@@ -9,4 +9,8 @@ export class ItemService {
   static async createItem(data: CreateItemDTO): Promise<Item> {
     return apiClient.post<Item>('/items', data);
   }
+
+  static async deleteItem(id: string): Promise<void> {
+    return apiClient.delete(`/items/${id}`);
+  }
 }

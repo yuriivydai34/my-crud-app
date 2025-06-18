@@ -33,11 +33,25 @@ export function useItems() {
     }
   }, []);
 
+const deleteItem = useCallback(async (id: string) => {
+    try {
+      setLoading(true);
+      await ItemService.deleteItem(id);
+      setItems(prev => prev.filter(item => item.id !== id));
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Failed to delete item'));
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     items,
     loading,
     error,
     fetchItems,
     addItem,
+    deleteItem
   };
 }
