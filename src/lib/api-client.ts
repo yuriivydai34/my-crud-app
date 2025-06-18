@@ -1,20 +1,31 @@
-// src/lib/api-client.ts
-export const API_BASE_URL = 'http://localhost:3355';
+const API_BASE_URL = 'http://localhost:3355';
 
-export const apiClient = {
-  get: async (endpoint: string) => {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`);
-    return response.json();
-  },
-  post: async (endpoint: string, data: any) => {
+class ApiClient {
+  private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  public async get<T>(endpoint: string): Promise<T> {
+    return this.request<T>(endpoint);
+  }
+
+  public async post<T>(endpoint: string, data: unknown): Promise<T> {
+    return this.request<T>(endpoint, {
+      method: 'POST',
       body: JSON.stringify(data),
     });
-    return response.json();
-  },
-  // Add other methods (PUT, DELETE, etc.)
-};
+  }
+}
+
+export const apiClient = new ApiClient();
