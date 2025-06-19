@@ -33,7 +33,7 @@ export function useItems() {
     }
   }, []);
 
-const deleteItem = useCallback(async (id: string) => {
+  const deleteItem = useCallback(async (id: string) => {
     try {
       setLoading(true);
       await ItemService.deleteItem(id);
@@ -46,12 +46,28 @@ const deleteItem = useCallback(async (id: string) => {
     }
   }, []);
 
+  const editItem = useCallback(async (id: string, data: Partial<Item>) => {
+    setLoading(true);
+    try {
+      const updated = await itemService.updateItem(id, data);
+      setItems(prev =>
+        prev.map(item => (item.id === id ? updated : item))
+      );
+      setError(null);
+    } catch (e) {
+      setError('Failed to edit item');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     items,
     loading,
     error,
     fetchItems,
     addItem,
-    deleteItem
+    deleteItem,
+    editItem
   };
 }

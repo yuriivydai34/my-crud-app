@@ -13,4 +13,8 @@ export class ItemService {
   static async deleteItem(id: string): Promise<void> {
     return apiClient.delete(`/items/${id}`);
   }
+
+  static async updateItem(id: string, data: Partial<Item>) {
+    return apiClient.put<Item>(`/items/${id}`, data)
+  }
 }

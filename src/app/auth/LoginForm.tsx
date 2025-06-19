@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { authService } from '@/services/authService';
 import { setAuthToken } from '@/utils/auth';
+import { Button } from '@heroui/react';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ export function LoginForm() {
     <form onSubmit={handleLogin}>
       <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
       <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-      <button type="submit">Login</button>
+      <Button color="success" type="submit">Login</Button>
       {error && <div>{error}</div>}
     </form>
   );

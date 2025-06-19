@@ -1,28 +1,26 @@
+import { useState } from 'react';
 import { Item } from '@/types/item';
+import { EditItemForm } from './EditItemForm';
 import { Button } from '@heroui/react';
 
 interface ListItemProps {
   item: Item;
-  onDelete: (id: string) => Promise<void>;
-  onEdit: (id: string) => Promise<void>;
+  onDelete: (id: string) => void;
+  onEdit: (id: string, data: Partial<Item>) => Promise<void>;
 }
 
 export function ListItem({ item, onDelete, onEdit }: ListItemProps) {
-  const handleDelete = async () => {
-    try {
-      await onDelete(item.id);
-    } catch (error) {
-      console.error('Failed to delete item:', error);
-    }
-  };
+  const [editing, setEditing] = useState(false);
 
-  const handleEdit = async () => {
-    try {
-      await onEdit(item.id);
-    } catch (error) {
-      console.error('Failed to edit item:', error);
-    }
-  };
+  if (editing) {
+    return (
+      <EditItemForm
+        item={item}
+        onSave={onEdit}
+        onCancel={() => setEditing(false)}
+      />
+    );
+  }
 
   return (
     <div className="p-4 border rounded flex justify-between items-center">
@@ -32,14 +30,14 @@ export function ListItem({ item, onDelete, onEdit }: ListItemProps) {
       </div>
       <div className="space-x-2">
         <Button
-            onClick={() => onEdit(item.id)}
-            color="primary"
-          >
-            Edit
-          </Button>
+          onClick={() => setEditing(true)}
+          color='primary'
+        >
+          Edit
+        </Button>
         <Button
           onClick={() => onDelete(item.id)}
-          color="danger"
+          color='danger'
         >
           Delete
         </Button>

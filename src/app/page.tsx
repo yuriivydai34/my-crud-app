@@ -6,7 +6,7 @@ import { ListItems } from '@/components/ListItems';
 import { useItems } from '@/hooks/useItems';
 
 export default function Home() {
-  const { items, loading, error, fetchItems, addItem, deleteItem } = useItems();
+  const { items, loading, error, fetchItems, addItem, deleteItem, editItem } = useItems();
 
   useEffect(() => {
     fetchItems();
@@ -24,6 +24,7 @@ export default function Home() {
         items={items} 
         isLoading={loading} 
         onDelete={deleteItem}
+        onEdit={editItem}
       />
     </main>
   );
