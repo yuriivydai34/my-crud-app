@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Item, CreateItemDTO } from '@/types/item';
+import { Item, CreateItemDTO } from '../types/index';
+import { Button } from '@heroui/react';
 
 interface AddItemProps {
   onAdd: (item: CreateItemDTO) => Promise<void>;
@@ -46,13 +47,13 @@ export function AddItem({ onAdd, isLoading = false }: AddItemProps) {
           required
         />
       </div>
-      <button
+      <Button
         type="submit"
+        color='success'
         disabled={isLoading}
-        className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
       >
         {isLoading ? 'Adding...' : 'Add Item'}
-      </button>
+      </Button>
     </form>
   );
 }

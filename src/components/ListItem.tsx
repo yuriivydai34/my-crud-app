@@ -1,4 +1,5 @@
 import { Item } from '@/types/item';
+import { Button } from '@heroui/react';
 
 interface ListItemProps {
   item: Item;
@@ -20,13 +21,12 @@ export function ListItem({ item, onDelete }: ListItemProps) {
         <h3 className="font-semibold">{item.title}</h3>
         <p className="text-gray-600">{item.description}</p>
       </div>
-      <button 
+      <Button 
+        color='danger'
         onClick={handleDelete}
-        variant="destructive"
-        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
       >
         Delete
-      </button>
+      </Button>
     </div>
   );
 }
