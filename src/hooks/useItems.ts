@@ -49,13 +49,14 @@ export function useItems() {
   const editItem = useCallback(async (id: string, data: Partial<Item>) => {
     setLoading(true);
     try {
-      const updated = await itemService.updateItem(id, data);
+      const updated = await ItemService.updateItem(id, data);
       setItems(prev =>
         prev.map(item => (item.id === id ? updated : item))
       );
       setError(null);
     } catch (e) {
       setError('Failed to edit item');
+      console.error('Error editing item:', e);
     } finally {
       setLoading(false);
     }
