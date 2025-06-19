@@ -1,6 +1,7 @@
 'use client'
 
-import { LoginForm, RegisterForm } from '@/components/AuthForms';
+import { LoginForm } from './LoginForm';
+import { RegisterForm } from './RegisterForm';
 
 export default function AuthPage() {
   return (

@@ -1,9 +1,6 @@
 // src/services/authService.ts
 import { apiClient } from '@/lib/api-client';
-
-export interface AuthResponse {
-  token: string;
-}
+import { AuthResponse } from '@/types/auth';
 
 export const authService = {
   async login(email: string, password: string): Promise<AuthResponse> {

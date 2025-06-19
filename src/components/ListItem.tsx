@@ -4,14 +4,23 @@ import { Button } from '@heroui/react';
 interface ListItemProps {
   item: Item;
   onDelete: (id: string) => Promise<void>;
+  onEdit: (id: string) => Promise<void>;
 }
 
-export function ListItem({ item, onDelete }: ListItemProps) {
+export function ListItem({ item, onDelete, onEdit }: ListItemProps) {
   const handleDelete = async () => {
     try {
       await onDelete(item.id);
     } catch (error) {
       console.error('Failed to delete item:', error);
+    }
+  };
+
+  const handleEdit = async () => {
+    try {
+      await onEdit(item.id);
+    } catch (error) {
+      console.error('Failed to edit item:', error);
     }
   };
 
@@ -21,12 +30,20 @@ export function ListItem({ item, onDelete }: ListItemProps) {
         <h3 className="font-semibold">{item.title}</h3>
         <p className="text-gray-600">{item.description}</p>
       </div>
-      <Button 
-        color='danger'
-        onClick={handleDelete}
-      >
-        Delete
-      </Button>
+      <div className="space-x-2">
+        <Button
+            onClick={() => onEdit(item.id)}
+            color="primary"
+          >
+            Edit
+          </Button>
+        <Button
+          onClick={() => onDelete(item.id)}
+          color="danger"
+        >
+          Delete
+        </Button>
+      </div>
     </div>
   );
 }

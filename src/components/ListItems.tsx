@@ -5,9 +5,10 @@ interface ListItemsProps {
   items: Item[];
   isLoading?: boolean;
   onDelete: (id: string) => Promise<void>;
+  onEdit: (id: string) => Promise<void>;
 }
 
-export function ListItems({ items, isLoading = false, onDelete }: ListItemsProps) {
+export function ListItems({ items, isLoading = false, onDelete, onEdit }: ListItemsProps) {
   if (isLoading) {
     return <div className="mt-4">Loading...</div>;
   }
@@ -19,6 +20,7 @@ export function ListItems({ items, isLoading = false, onDelete }: ListItemsProps
           key={item.id}
           item={item}
           onDelete={onDelete}
+          onEdit={onEdit}
         />
       ))}
     </div>

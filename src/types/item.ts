@@ -1,4 +1,4 @@
-// src/types/index.ts
+// src/types/item.ts
 export interface Item {
   id: string;
   name: string;
